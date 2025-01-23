@@ -60,9 +60,4 @@ The robot provides a live video stream for monitoring its environment. To access
 
 ---
 
-## **License**
-This project is licensed under [Your Preferred License]. See `LICENSE` for details.
-
----
-
 Let me know if you'd like further customization!
