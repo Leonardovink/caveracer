@@ -58,9 +58,10 @@ The robot provides a live video stream for monitoring its environment. To access
   ```
 - Confirm that Python 3 is installed on the Raspberry Pi.
 
-- # **ORB SLAM3 Installation/Operation Guide**
--The 3D mapping from a 2D image came from https://github.com/UZ-SLAMLab/ORB_SLAM3. If you want to install the software from skratch I recommend that you use a virtual environment of ubuntu. WHen installing I also recommend that you follow this guide on youtube: https://www.youtube.com/watch?v=HWm5KMOL2PY , since the installation is pure hell if you do not know what you are doing. It is also possible to install on other versions of ubuntu and without a virtual environment. The installation that I did was on ubuntu 22.04 without virtual environment, but for me that caused a lot of problems with package dependencies.
+# **ORB SLAM3 Installation/Operation Guide**
+The 3D mapping from a 2D image came from https://github.com/UZ-SLAMLab/ORB_SLAM3. If you want to install the software from skratch I recommend that you use a virtual environment of ubuntu. When installing I also recommend that you follow this guide on youtube: https://www.youtube.com/watch?v=HWm5KMOL2PY , since the installation is pure hell if you do not know what you are doing. It is also possible to install on other versions of ubuntu and without a virtual environment. The installation that I did was on ubuntu 22.04 without virtual environment, but for me that caused a lot of problems with package dependencies.
 
+For the operation there is a run.txt which includes commands to run the software it is important to run the files in the ORB-SLAM3 folder in the cmd. The commands are in a certain order, the things that you need to run the program are Opencv2 folder, the pangolin folder and the boost folder. Then when you want to execute the software on your own footage it is important that you have a dataset folder in which you have a folder with all the images and the rgb.txt, I don't know why but the rgb.txt file is not the rgb values but it is set up as {timestamp_foto} {name_image.jpg}.
 - 
 
 ---
