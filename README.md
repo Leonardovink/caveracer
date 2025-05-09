@@ -35,6 +35,7 @@ After logging in via SSH, follow these steps:
    python3 gui.py &
    python3 video.py &
    ```
+   **Lookout when running the video.py it starts making screenshots of the footage at 15 fps, which can fill up the memory quite fast. So before running the video.py it might be smart to comment out the screenshot code.**
 
 ---
 
@@ -64,7 +65,7 @@ The robot provides a live video stream for monitoring its environment. To access
 The 3D mapping from a 2D image came from https://github.com/UZ-SLAMLab/ORB_SLAM3. If you want to install the software from skratch I recommend that you use a virtual environment of ubuntu. When installing I also recommend that you follow this guide on youtube: https://www.youtube.com/watch?v=HWm5KMOL2PY , since the installation is pure hell if you do not know what you are doing. It is also possible to install on other versions of ubuntu and without a virtual environment. The installation that I did was on ubuntu 22.04 without virtual environment, but for me that caused a lot of problems with package dependencies.
 
 ## **Operation**
-For the operation there is a run.txt which includes commands to run the software it is important to run the files in the ORB-SLAM3 folder. The command structure are structured in a certain way. Ultimately the things that you need to run the program are the Opencv2 folder, the pangolin folder and the boost folder. Then when you want to execute the software on your own footage it is important that you have a dataset folder in which you have a folder with all the images and the rgb.txt, I don't know why but the rgb.txt file is not the rgb values but it is set up as {timestamp_foto} {name_image.jpg}. Another important file is the camera.yaml file (a settings file for the SLAM ORB3 processing). For a monocular camera setup it is located at ORB-SLAM3/Examples/monocular and is named TUMMonoVO.yaml. This file includes the extrinsic and instrinsic camera information and also includes the settings used for the software. To get the settings for the camera a calibration process is needed. This calibration process is done with a checkerboard and then calculating the distortion (k1,k2, etc..).
+For the operation there is a run.txt which includes commands to run the software it is important to run the files in the ORB-SLAM3 folder. Ultimately the necessary files that you need to run the program are the Opencv2 folder, the pangolin folder and the boost folder. Then when you want to execute the software on your own footage it is important that you have a dataset folder in which you have a folder with all the images and the rgb.txt, I don't know why but the rgb.txt file is not the rgb values, but it is set up as {timestamp_foto} {name_image.jpg}. Another important file is the camera.yaml file (a settings file for the SLAM ORB3 processing). For a monocular camera setup, the settings are located at ORB-SLAM3/Examples/monocular and is named TUMMonoVO.yaml. This file includes the extrinsic and instrinsic camera information and also includes the settings used for the software. To get the settings for the camera a calibration process is needed. This calibration process is done with a checkerboard and with it calculate the distortion in the footage (k1,k2, etc..).
  
 
 ---
