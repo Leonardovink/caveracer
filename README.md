@@ -35,7 +35,8 @@ After logging in via SSH, follow these steps:
    python3 gui.py &
    python3 video.py &
    ```
-   <span style="color:red">Lookout when running the video.py it starts making screenshots of the footage at 15 fps, which can fill up the memory quite fast. So before running the video.py it might be smart to comment out the screenshot code.</span>
+   ⚠️ **Look out!** When running `video.py`, it starts making screenshots of the footage at 15 FPS, which can fill up memory quickly. Consider commenting out the screenshot code before running it.
+
    
 ---
 
@@ -60,7 +61,7 @@ The robot provides a live video stream for monitoring its environment. To access
 - Confirm that Python 3 is installed on the Raspberry Pi.
 
 # **ORB SLAM3 Installation/Operation Guide**
-### **Warning if you are not tech savy I do not recommend you to use ORB-SLAM3 since it can be quite hard to get to work**
+### ⚠️**Warning if you are not tech savy I do not recommend you to use ORB-SLAM3 since it can be quite hard to get to work**
 
 The 3D mapping from a 2D image came from https://github.com/UZ-SLAMLab/ORB_SLAM3. If you want to install the software from skratch I recommend that you use a virtual environment of ubuntu. When installing I also recommend that you follow this guide on youtube: https://www.youtube.com/watch?v=HWm5KMOL2PY , since the installation is pure hell if you do not know what you are doing. It is also possible to install on other versions of ubuntu and without a virtual environment. The installation that I did was on ubuntu 22.04 without virtual environment, but for me that caused a lot of problems with package dependencies.
 
