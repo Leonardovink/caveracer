@@ -58,6 +58,11 @@ The robot provides a live video stream for monitoring its environment. To access
   ```
 - Confirm that Python 3 is installed on the Raspberry Pi.
 
+- # **ORB SLAM3 Installation/Operation Guide**
+-The 3D mapping from a 2D image came from https://github.com/UZ-SLAMLab/ORB_SLAM3. If you want to install the software from skratch I recommend that you use a virtual environment of ubuntu. WHen installing I also recommend that you follow this guide on youtube: https://www.youtube.com/watch?v=HWm5KMOL2PY , since the installation is pure hell if you do not know what you are doing. It is also possible to install on other versions of ubuntu and without a virtual environment. The installation that I did was on ubuntu 22.04 without virtual environment, but for me that caused a lot of problems with package dependencies.
+
+- 
+
 ---
 
 Let me know if you'd like further customization!
