@@ -71,5 +71,3 @@ For the operation there is a run.txt which includes commands to run the software
 
 ---
 
-Let me know if you'd like further customization!
-
