@@ -35,7 +35,8 @@ After logging in via SSH, follow these steps:
    python3 gui.py &
    python3 video.py &
    ```
-   "\033[0;31m Lookout when running the video.py it starts making screenshots of the footage at 15 fps, which can fill up the memory quite fast. So before running the video.py it might be smart to comment out the screenshot code.\033[0m"
+   <span style="color:red">Lookout when running the video.py it starts making screenshots of the footage at 15 fps, which can fill up the memory quite fast. So before running the video.py it might be smart to comment out the screenshot code.</span>
+   
 ---
 
 ### **Viewing the Live Stream**
