@@ -66,19 +66,19 @@ The robot provides a live video stream for monitoring its environment. To access
 
 The 3D mapping from a 2D image comes from [ORB-SLAM3](https://github.com/UZ-SLAMLab/ORB_SLAM3).
 
-If you want to install the software from scratch, I recommend using a **virtual environment of Ubuntu**. When installing, I also recommend to follow this guide on YouTube:  
+If you want to install the software from scratch, I recommend using a **virtual environment of Ubuntu**. When installing, I also recommend to follow this guide on YouTube since the documentation on original github in my opinion was lacking:  
 https://www.youtube.com/watch?v=HWm5KMOL2PY
 
-> ⚠️ The installation is **pure hell**. If you do not know exactly what you are doing I recommend to follow the youtube guide step by step.
+> ⚠️ The installation is **pure hell**. If you do not know exactly what you are doing I recommend you to follow the youtube guide step by step.
 
-It is also possible to install on other versions of Ubuntu and without a virtual environment.  
-This was the type of installation I did. It was on **Ubuntu 22.04 without a virtual environment**, but I really recommend you not to do this because this caused a lot of problems with **package dependencies**, because ubuntu 22.04 was too new for some packages.
+It is possible to install ORB SLAM 3 on a lot of different versions of Ubuntu and without a virtual environment.+  
+The type of installation I did was on **Ubuntu 22.04 without a virtual environment**, but I really recommend you not to do this because this caused a lot of problems with **package dependencies**, because ubuntu 22.04 was too new for some packages.
 
 ---
 
 ## **Operation**
 
-For running the software, there is a `run.txt` file that includes commands to execute the system.  
+For running the software, there is a `run.txt` file that includes commands to execute the system that you can copy into the cmd.  
 It is important to run the commands from within the **`ORB_SLAM3/` folder**.
 
 Ultimately, the necessary folders/files to run the program are:
