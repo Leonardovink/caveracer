@@ -60,14 +60,110 @@ The robot provides a live video stream for monitoring its environment. To access
   ```
 - Confirm that Python 3 is installed on the Raspberry Pi.
 
-# **ORB SLAM3 Installation/Operation Guide**
-### ⚠️**Warning if you are not tech savy I do not recommend you to use ORB-SLAM3 since it can be quite hard to get to work**
+## ORB-SLAM3: 3D Mapping from a 2D Image
 
-The 3D mapping from a 2D image came from https://github.com/UZ-SLAMLab/ORB_SLAM3. If you want to install the software from skratch I recommend that you use a virtual environment of ubuntu. When installing I also recommend that you follow this guide on youtube: https://www.youtube.com/watch?v=HWm5KMOL2PY , since the installation is pure hell if you do not know what you are doing. It is also possible to install on other versions of ubuntu and without a virtual environment. The installation that I did was on ubuntu 22.04 without virtual environment, but for me that caused a lot of problems with package dependencies.
+The 3D mapping from a 2D image comes from [ORB-SLAM3](https://github.com/UZ-SLAMLab/ORB_SLAM3).
+
+If you want to install the software from scratch, I recommend using a **virtual environment of Ubuntu**. When installing, I also recommend to follow this guide on YouTube:  
+https://www.youtube.com/watch?v=HWm5KMOL2PY
+
+> ⚠️ The installation is **pure hell** if you do not know exactly what you are doing.
+
+It is also possible to install on other versions of Ubuntu and without a virtual environment.  
+This was the type of installation I did. It was on **Ubuntu 22.04 without a virtual environment**, but I really recommend you not to do this because this caused a lot of problems with **package dependencies** for me.
+
+---
 
 ## **Operation**
-For the operation there is a run.txt which includes commands to run the software it is important to run the files in the ORB-SLAM3 folder. Ultimately the necessary files that you need to run the program are the Opencv2 folder, the pangolin folder and the boost folder. Then when you want to execute the software on your own footage it is important that you have a dataset folder in which you have a folder with all the images and the rgb.txt, I don't know why but the rgb.txt file is not the rgb values, but it is set up as {timestamp_foto} {name_image.jpg}. Another important file is the camera.yaml file (a settings file for the SLAM ORB3 processing). For a monocular camera setup, the settings are located at ORB-SLAM3/Examples/monocular and is named TUMMonoVO.yaml. This file includes the extrinsic and instrinsic camera information and also includes the settings used for the software. To get the settings for the camera a calibration process is needed. This calibration process is done with a checkerboard and with it calculate the distortion in the footage (k1,k2, etc..).
- 
 
+For running the software, there is a `run.txt` file that includes commands to execute the system.  
+It is important to run the commands from within the **`ORB_SLAM3/` folder**.
+
+Ultimately, the necessary folders/files to run the program are:
+
+- `Opencv2 version 4.7.0/` http://opencv.org. Required at least 3.0. Documentation was Tested with OpenCV 3.2.0 and 4.4.0.
+- `Pangolin version 0_8/` https://github.com/stevenlovegrove/Pangolin
+- `boost version 1_78_0/` Not Required, but the youtube video used it so I also used it.
+- `eigen3/` Required by g2o. Download and install instructions can be found at: http://eigen.tuxfamily.org. Required at least 3.1.0. I don't remember the exact version I used, but it should be in the youtube video.
+
+
+> ❗ Note: The `rgb.txt` file is **not** a list of RGB values and if it is incorrectly formatted in my experience it will not work!!.  
+> It is formatted as:
+> ```
+> name_image is normally a 6 number name, so 000001.jpg etc etc
+> {timestamp_foto} {name_image.jpg}
+
+Another important file is the `camera.yaml` or in our case TUMMonoVO.yaml this is a settings file required for ORB-SLAM3 processing.
+
+For a **monocular camera setup**, the settings are located at: ORB-SLAM3/Examples/Monocular/TUMMonoVO.yaml
+
+This file includes:
+
+- Extrinsic and intrinsic camera parameters
+- Processing settings used by the software
+
+To obtain the correct settings for your camera, a **calibration process is needed**.  
+
+## Camera Calibration Process Using a Checkerboard
+
+Camera calibration is an essential step in the ORB-SLAM3 pipeline. It helps determine both the **intrinsic** and **extrinsic** parameters of the camera, which are crucial for accurate 3D mapping. The process also accounts for **lens distortion**, which must be corrected for the SLAM system to function optimally.
+
+The process of camera calibration typically involves the following steps:
+
+### 1. Prepare the Checkerboard Pattern
+   
+- A **checkerboard** pattern is used to perform the calibration.
+- You can either print the checkerboard pattern on a sheet of paper or use physical checkerboard.
+- The checkerboard should have a known grid size, for example:
+  - 7x7 inner squares (this is the number of intersections in the grid, not the number of squares).
+  - Each square might be 25mm x 25mm (but you can scale it to any size).
+
+### 2. Capture Calibration Images
+
+- Use the camera you're calibrating to take several **images** of the checkerboard.
+- The images should cover a range of angles and distances from the camera to ensure accurate calibration.
+- For best results:
+  - Take pictures from **different distances**.
+  - Vary the **angle** of the camera (e.g., front, side, and tilted).
+  - Ensure that the checkerboard occupies a significant portion of the image but doesn't need to take up the whole frame.
+
+> **Note:** It's recommended to capture around 10-20 images with different angles for better accuracy.
+
+### 3. Extract the Corners of the Checkerboard
+
+- Use a calibration tool (like OpenCV) to **detect the corners** of the checkerboard in each image code can be found online it is used a lot.
+- This is done by identifying the **intersections** of the black-and-white squares.
+- OpenCV’s `findChessboardCorners()` function can automatically detect these corners in the images if the checkerboard is visible.
+
+> **Tip:** If the corners aren't detected correctly, try adjusting the lighting or focus on the checkerboard.
+
+### 4. Calibrate the Camera Using OpenCV (optional you could use other ways)
+
+After capturing the images and extracting the corners, you can proceed with camera calibration using OpenCV.
+
+- OpenCV provides the function `cv2.calibrateCamera()` to calculate the intrinsic and extrinsic parameters of the camera.
+  
+#### 4.1 Input to `cv2.calibrateCamera()`
+You need two sets of data for calibration:
+- **Object points**: These are the known 3D coordinates of the checkerboard corners in the world. Since the checkerboard is flat, the Z-coordinate is typically set to 0.
+  - For example, if the checkerboard squares are 25mm x 25mm, the object points will look like:
+    ```
+    (0, 0, 0), (25, 0, 0), (50, 0, 0), ..., (0, 25, 0), (25, 25, 0), ...
+    ```
+- **Image points**: These are the detected 2D coordinates of the checkerboard corners in the image space.
+  - These points are extracted automatically by OpenCV.
+
+#### 4.2 Output from `cv2.calibrateCamera()`
+The calibration function outputs several parameters:
+- **Camera Matrix (Intrinsic Parameters)**:
+  - Focal length (`fx`, `fy`)
+  - Optical center (`cx`, `cy`)
+  - Skew factor (usually zero)
+
+- **Distortion Coefficients**:
+These coefficients are necessary to correct lens distortion. Common distortion parameters include:
+- `k1`, `k2`: Radial distortion coefficients.
+- `p1`, `p2`: Tangential distortion coefficients.
+- `k3`: Higher-order radial distortion (optional).
 ---
 
