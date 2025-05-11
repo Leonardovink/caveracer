@@ -18,7 +18,9 @@ CaveRacer is a snake-like robot designed for cave exploration. This robot can tr
    ```
    CaveRacer
    ```
-
+### **Connecting the robot to wifi**
+1. **Connect to uva network with the raspberry by filling in credentials**
+2. **Delete password after being finished with the project, the previous group did not do this but it is unsafe to just leave your uva login in a shared space**
 ---
 
 ### **Running the Robot Software**
@@ -67,10 +69,10 @@ The 3D mapping from a 2D image comes from [ORB-SLAM3](https://github.com/UZ-SLAM
 If you want to install the software from scratch, I recommend using a **virtual environment of Ubuntu**. When installing, I also recommend to follow this guide on YouTube:  
 https://www.youtube.com/watch?v=HWm5KMOL2PY
 
-> ⚠️ The installation is **pure hell** if you do not know exactly what you are doing.
+> ⚠️ The installation is **pure hell**. If you do not know exactly what you are doing I recommend to follow the youtube guide step by step.
 
 It is also possible to install on other versions of Ubuntu and without a virtual environment.  
-This was the type of installation I did. It was on **Ubuntu 22.04 without a virtual environment**, but I really recommend you not to do this because this caused a lot of problems with **package dependencies** for me.
+This was the type of installation I did. It was on **Ubuntu 22.04 without a virtual environment**, but I really recommend you not to do this because this caused a lot of problems with **package dependencies**, because ubuntu 22.04 was too new for some packages.
 
 ---
 
@@ -102,7 +104,7 @@ This file includes:
 - Extrinsic and intrinsic camera parameters
 - Processing settings used by the software
 
-To obtain the correct settings for your camera, a **calibration process is needed**.  
+To obtain the correct settings for your camera, a **calibration is needed**.  
 
 ## Camera Calibration Process Using a Checkerboard
 
