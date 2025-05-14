@@ -10,11 +10,14 @@ import logging
 import socketserver
 from http import server
 from threading import Condition
-
+import threading
 from picamera2 import Picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
-
+import time
+import datetime
+import cv2
+import os
 PAGE = """\
 <html>
 <head>
@@ -85,12 +88,31 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
 
 picam2 = Picamera2()
 picam2.configure(picam2.create_video_configuration())
+picam2.set_controls({
+    "ExposureTime": 20000,  # Exposure time in microseconds (adjust as needed)
+    "AnalogueGain": 0.5,    # Gain multiplier (1.0 is no gain, 2.0 is double the gain, etc.)
+})
 output = StreamingOutput()
 picam2.start_recording(JpegEncoder(), FileOutput(output))
 
+def capture_frames():
+    counter = 0
+    with open("screen_shot/rgb.txt", "w") as f:
+        while counter < 900:
+            counter +=1
+            time.sleep(0.066)  # Capture every 10 seconds
+            frame = picam2.capture_array()
+            timestamp = time.time()
+            
+            cv2.imwrite(f"screen_shot/{counter:06d}.jpg", frame)
+            
+            f.write(f"{timestamp} {counter:06d}.jpg\n")
+threading.Thread(target=capture_frames, daemon=True).start()
 try:
     address = ('', 8000)
     server = StreamingServer(address, StreamingHandler)
     server.serve_forever()
+except KeyboardInterrupt:
+    print("\nInterrupted by user. Stopping camera and server.")
 finally:
     picam2.stop_recording()

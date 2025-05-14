@@ -9,8 +9,8 @@ current_speed = 0
 current_direction = "Stop"
 selected_arduinos = [True] * 5 
 
-def send_command(byte_value):
-    for slave in arduino_addresses:
+def send_command(byte_value, modules):
+    for slave in modules:
         if selected_arduinos[slave]:
             print(slave, byte_value)
             bus.write_byte(slave, byte_value)
@@ -34,7 +34,7 @@ def set_speed(speed):
         100: 18
     }
 
-    send_command(speed_to_byte[speed])
+    send_command(speed_to_byte[speed], arduino_addresses)
     speed_label.config(text=f"Speed: {current_speed}%")
 
 def set_servo_position(position):
@@ -59,18 +59,25 @@ def key_press(event):
 
     if key == "W":
         current_direction = "Forward"
-        send_command(10)
+        send_command(10, arduino_addresses)
     elif key == "A":
         current_direction = "Left"
-        send_command(13)
+        for slave in arduino_addresses[1:4]:
+             if slave in selected_arduinos:
+                 send_command(10, [slave])
+        send_command(13, [arduino_addresses[0]])
     elif key == "S":
         current_direction = "Backward"
-        send_command(11)
+        send_command(11, arduino_addresses)
     elif key == "D":
         current_direction = "Right"
-        send_command(12)
-    else:
+        for slave in arduino_addresses[1:4]:
+             if slave in selected_arduinos:
+                 send_command(10, [slave])
+        send_command(12, [arduino_addresses[0]])
+    elif key == "Q":
         current_direction = "Stop"
+        send_command(0, arduino_addresses)
 
     direction_label.config(text=f"Direction: {current_direction}")
 
